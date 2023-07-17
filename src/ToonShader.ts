@@ -1,17 +1,13 @@
-import { Color, Vector3 } from "three";
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+import { Vector3, Color } from "three";
 
 export const ToonShader = {
   uniforms: {
     colorMap: {
-      value: [
-        new Color("#427062"),
-        new Color("#33594E"),
-        new Color("#234549"),
-        new Color("#1E363F"),
-      ],
+      value: [] as Color[],
     },
     brightnessThresholds: {
-      value: [0.9, 0.45, 0.001],
+      value: [0.6, 0.35, 0.001],
     },
     lightPosition: { value: new Vector3(15, 15, 15) },
   },
