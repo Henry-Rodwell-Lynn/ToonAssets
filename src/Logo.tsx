@@ -22,7 +22,7 @@ export const Logo = forwardRef<any, LogoProps>((props, ref) => {
         receiveShadow
         geometry={nodes.qawalli.geometry}
         rotation={[Math.PI / 2, 0, 0]}
-        scale={1}
+        scale={0.5}
       >
         <shaderMaterial attach="material" {...ToonShader} />
       </mesh>

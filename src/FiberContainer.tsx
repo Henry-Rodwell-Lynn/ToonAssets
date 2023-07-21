@@ -10,7 +10,7 @@ export function FiberContainer() {
       <Scene />
       <Ground />
       <OrbitControls 
-      minDistance={40} 
+      minDistance={10} 
       maxDistance={100}
       enablePan={false}
       enableRotate={true} />
