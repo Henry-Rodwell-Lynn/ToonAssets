@@ -2,7 +2,7 @@ import { useRef, useMemo } from "react";
 import { Logo } from "./Logo";
 import { useFrame } from "@react-three/fiber";
 import { Color, Group } from "three";
-import { folder, useControls } from "leva";
+import { useControls } from "leva";
 
 export const Scene = () => {
   const { High, High_Mid, Low_Mid, Low } = useControls(
