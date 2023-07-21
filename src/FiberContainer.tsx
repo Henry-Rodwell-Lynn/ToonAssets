@@ -5,13 +5,13 @@ import { Ground } from "./Ground";
 
 export function FiberContainer() {
   return (
-    <div className=" justify-self-center absolute h-full w-full bg-[#0140b9]">
-    <Canvas camera={{ position: [15, 4, 0], fov: 30 }} shadows>
+    <div className=" justify-self-center absolute h-full w-full bg-[#ffffff]">
+    <Canvas camera={{ position: [50, 4, 0], fov: 30 }} shadows>
       <Scene />
       <Ground />
       <OrbitControls 
-      minDistance={5} 
-      maxDistance={30}
+      minDistance={40} 
+      maxDistance={100}
       enablePan={false}
       enableRotate={true} />
     </Canvas>

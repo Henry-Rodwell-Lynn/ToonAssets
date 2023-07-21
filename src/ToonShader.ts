@@ -7,7 +7,7 @@ export const ToonShader = {
       value: [] as Color[],
     },
     brightnessThresholds: {
-      value: [0.6, 0.35, 0.001],
+      value: [0.99, 0.35, 0.0],
     },
     lightPosition: { value: new Vector3(15, 15, 15) },
   },

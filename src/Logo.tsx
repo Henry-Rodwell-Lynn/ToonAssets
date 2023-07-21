@@ -9,7 +9,7 @@ interface LogoProps {
 }
 
 export const Logo = forwardRef<any, LogoProps>((props, ref) => {
-  const { nodes } = useGLTF("/untitled6.glb") as any;
+  const { nodes } = useGLTF("./2.6K_Fac.glb") as any;
 
   useEffect(() => {
     ToonShader.uniforms.colorMap.value = props.colors.map((color) => new Color(color));
@@ -20,9 +20,9 @@ export const Logo = forwardRef<any, LogoProps>((props, ref) => {
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Curve.geometry}
+        geometry={nodes.qawalli.geometry}
         rotation={[Math.PI / 2, 0, 0]}
-        scale={30}
+        scale={1}
       >
         <shaderMaterial attach="material" {...ToonShader} />
       </mesh>
@@ -30,4 +30,4 @@ export const Logo = forwardRef<any, LogoProps>((props, ref) => {
   );
 });
 
-useGLTF.preload("/untitled6.glb");
+useGLTF.preload("./2.6K_Fac.glb");
