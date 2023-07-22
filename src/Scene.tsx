@@ -1,29 +1,19 @@
-import { useRef, useMemo } from "react";
+import { useRef, ReactNode } from "react";
 import { Logo } from "./Logo";
 import { useFrame } from "@react-three/fiber";
-import { Color, Group } from "three";
-import { useControls } from "leva";
+import { Group } from "three";
+import { Color } from "three";
 
-export const Scene = () => {
-  const { High, High_Mid, Low_Mid, Low } = useControls(
-    "Color", {
-    High: "#eee5e0",
-    High_Mid: "#6cb4db",
-    Low_Mid: "#31529e",
-    Low: "#270000",
-  });
+interface SceneProps {
+  colors: Color[];
+  brightnessThresholds: number[];
+  children?: ReactNode;
+}
+
+
+export const Scene = ({ colors, brightnessThresholds }: SceneProps) => {
 
   const refLogo = useRef<Group>(null);
-
-  const colors = useMemo(
-    () => [
-      new Color(High).convertLinearToSRGB(),
-      new Color(High_Mid).convertLinearToSRGB(),
-      new Color(Low_Mid).convertLinearToSRGB(),
-      new Color(Low).convertLinearToSRGB(),
-    ],
-    [High, High_Mid, Low_Mid, Low]
-  );
 
   useFrame(() => {
     const { current: group } = refLogo;
@@ -34,7 +24,7 @@ export const Scene = () => {
 
   return (
     <>
-      <Logo ref={refLogo} colors={colors} />
+      <Logo ref={refLogo} colors={colors} brightnessThresholds={brightnessThresholds} />
     </>
   );
 };

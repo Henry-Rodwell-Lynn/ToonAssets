@@ -2,15 +2,17 @@
 import { Vector3, Color } from "three";
 
 export const ToonShader = {
+
   uniforms: {
     colorMap: {
       value: [] as Color[],
     },
     brightnessThresholds: {
-      value: [0.99, 0.35, 0.0],
+      value: [0.95, 0.35, 0.0],
     },
     lightPosition: { value: new Vector3(15, 15, 15) },
   },
+
   vertexShader: /* glsl */ `
     // Set the precision for data types used in this shader
     precision highp float;
@@ -26,23 +28,22 @@ export const ToonShader = {
 
       gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
     }`,
+
   fragmentShader: /* glsl */ `
     precision highp float;
     precision highp int;
 
-    // Default THREE.js uniforms available to both fragment and vertex shader
     uniform mat4 modelMatrix;
 
     uniform vec3 colorMap[4];
     uniform float brightnessThresholds[3];
     uniform vec3 lightPosition;
 
-    // Variables passed from vertex to fragment shader
     varying vec3 vNormal;
     varying vec3 vPosition;
 
     void main() {
-      vec3 worldPosition = ( modelMatrix * vec4( vPosition, 1.0 )).xyz;
+      vec3 worldPosition = ( modelMatrix * vec4( vPosition, 1 )).xyz;
       vec3 worldNormal = normalize( vec3( modelMatrix * vec4( vNormal, 0.0 ) ) );
       vec3 lightVector = normalize( lightPosition - worldPosition );
       float brightness = dot( worldNormal, lightVector );

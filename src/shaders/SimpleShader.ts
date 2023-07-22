@@ -1,4 +1,4 @@
-export const vertexShader = `
+export const vertexShader = /* glsl */`
     varying vec3 Normal;
     void main() {
         Normal = normalize(normalMatrix * normal);
@@ -8,7 +8,7 @@ export const vertexShader = `
     }
 `;
 
-export const fragmentShader = `
+export const fragmentShader = /* glsl */`
     varying vec3 Normal;
     void main() {
         vec3 n = normalize(Normal);
