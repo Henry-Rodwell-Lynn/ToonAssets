@@ -9,19 +9,19 @@ import { useControls, folder } from "leva";
 export function FiberContainer() {
   const { High, High_Mid, Low_Mid, Low, Background } = useControls("Color", {
     Model: folder({
-      High: "#ffffff",
-      High_Mid: "#845bfe",
-      Low_Mid: "#5c3fb1",
-      Low: "#342364",
+      High: "#ff97f1",
+      High_Mid: "#ff5ce9",
+      Low_Mid: "#b03fa5",
+      Low: "#1f003e",
     }),
     Background: folder({
       Background: '#ffffff',
     }),
   });
 
-  const { Highlights, Midtones, Shadows } = useControls("Brightness Thresholds", {
+  const { Highlights, Midtones, Shadows } = useControls("Shader", {
     Highlights: {
-      value: 0.95,
+      value: 0.98,
       min: 0,
       max: 1,
       step: 0.01
