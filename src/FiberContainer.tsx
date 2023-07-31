@@ -2,17 +2,16 @@ import { useMemo } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { Scene } from "./Scene";
-import { Ground } from "./Ground";
 import { Color } from "three";
 import { useControls, folder } from "leva";
 
 export function FiberContainer() {
   const { High, High_Mid, Low_Mid, Low, Background } = useControls("Color", {
     Model: folder({
-      High: "#ff97f1",
-      High_Mid: "#ff5ce9",
-      Low_Mid: "#b03fa5",
-      Low: "#1f003e",
+      High: "#f2ff00",
+      High_Mid: "#00ecff",
+      Low_Mid: "#ff00e6",
+      Low: "#8000ff",
     }),
     Background: folder({
       Background: '#ffffff',
@@ -59,7 +58,6 @@ export function FiberContainer() {
     <div style={{background: Background}} className=" justify-self-center absolute h-full w-full">
       <Canvas camera={{ position: [50, 4, 0], fov: 30 }} shadows>
         <Scene colors={colors} brightnessThresholds={brightnessThresholds} />
-        <Ground />
         <OrbitControls 
           minDistance={10} 
           maxDistance={100}
