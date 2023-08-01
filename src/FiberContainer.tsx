@@ -8,7 +8,7 @@ import {
   EffectComposer,
   Bloom,
   Pixelation,
-  Outline,
+  Scanline,
 } from "@react-three/postprocessing";
 
 export function FiberContainer() {
@@ -45,37 +45,44 @@ export function FiberContainer() {
     },
   });
 
-  const { luminanceThreshold, luminanceSmoothing, intensity, granularity } =
-    useControls("Effects", {
-      Bloom: folder({
-        luminanceThreshold: {
-          value: 0.01,
-          min: 0.01,
-          max: 1,
-          step: 0.01,
-        },
-        luminanceSmoothing: {
-          value: 0,
-          min: 0,
-          max: 1,
-          step: 0.01,
-        },
-        intensity: {
-          value: 1.4,
-          min: 0,
-          max: 5,
-          step: 0.01,
-        },
-      }),
-      Pixelate: folder({
-        granularity: {
-          value: 0,
-          min: 0,
-          max: 10,
-          step: 0.1,
-        },
-      }),
-    });
+  const { Threshold, Smoothing, Intensity, Amount, Density } = useControls("Effects", {
+    Bloom: folder({
+      Threshold: {
+        value: 0.01,
+        min: 0.01,
+        max: 1,
+        step: 0.01,
+      },
+      Smoothing: {
+        value: 0,
+        min: 0,
+        max: 1,
+        step: 0.01,
+      },
+      Intensity: {
+        value: 1.4,
+        min: 0,
+        max: 5,
+        step: 0.01,
+      },
+    }),
+    Pixelate: folder({
+      Amount: {
+        value: 0,
+        min: 0,
+        max: 10,
+        step: 0.1,
+      },
+    }),
+    Scanlines: folder({
+      Density: {
+        value: 1.0,
+        min: 0,
+        max: 2,
+        step: 0.01,
+      },
+    }),
+  });
 
   const colors = useMemo(
     () => [
@@ -107,17 +114,20 @@ export function FiberContainer() {
         />
         <EffectComposer
           enabled={true}
-          disableNormalPass={true}
+          disableNormalPass={false}
           depthBuffer={false}
         >
+          <Scanline scrollSpeed={0.05} density={Density} opacity={0.3}/>
           <Bloom
-            luminanceThreshold={luminanceThreshold}
-            luminanceSmoothing={luminanceSmoothing}
+            luminanceThreshold={Threshold}
+            luminanceSmoothing={Smoothing}
             height={300}
-            intensity={intensity}
+            intensity={Intensity}
+            resolutionScale={1000}
+            resolutionX={1080}
+            resolutionY={1080}
           />
-          <Pixelation granularity={granularity} />
-          <Outline />
+          <Pixelation granularity={Amount} />
         </EffectComposer>
       </Canvas>
     </div>

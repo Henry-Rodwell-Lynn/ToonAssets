@@ -17,7 +17,7 @@ export const Logo = forwardRef<any, LogoProps>((props, ref) => {
     Opacity: {
       value: 0.5,
       min: 0.1,
-      max: 1,
+      max: 0.9,
       step: 0.1,
     },
   });
