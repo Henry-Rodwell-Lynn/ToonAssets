@@ -24,65 +24,97 @@ export function FiberContainer() {
     }),
   });
 
-  const { Highlights, Midtones, Shadows } = useControls("Shader", {
-    Highlights: {
-      value: 0.87,
-      min: 0,
-      max: 1,
-      step: 0.01,
-    },
-    Midtones: {
-      value: 0.35,
-      min: 0,
-      max: 1,
-      step: 0.01,
-    },
-    Shadows: {
-      value: 0.0,
-      min: 0,
-      max: 1,
-      step: 0.01,
-    },
-  });
-
-  const { Threshold, Smoothing, Intensity, Amount, Density } = useControls("Effects", {
-    Bloom: folder({
-      Threshold: {
-        value: 0.01,
-        min: 0.01,
-        max: 1,
-        step: 0.01,
-      },
-      Smoothing: {
-        value: 0,
+  const {
+    Highlights,
+    Midtones,
+    Shadows,
+    Light_X,
+    Light_Y,
+    Light_Z,
+  } = useControls("Shader", {
+    Material: folder({
+      Highlights: {
+        value: 0.87,
         min: 0,
         max: 1,
         step: 0.01,
       },
-      Intensity: {
-        value: 1.4,
+      Midtones: {
+        value: 0.35,
         min: 0,
-        max: 5,
+        max: 1,
+        step: 0.01,
+      },
+      Shadows: {
+        value: 0.0,
+        min: 0,
+        max: 1,
         step: 0.01,
       },
     }),
-    Pixelate: folder({
-      Amount: {
-        value: 0,
-        min: 0,
-        max: 10,
-        step: 0.1,
+    Light_Position: folder({
+      Light_X: {
+        value: 25,
+        min: -100,
+        max: 100,
+        step: 1,
       },
-    }),
-    Scanlines: folder({
-      Density: {
-        value: 1.0,
-        min: 0,
-        max: 2,
-        step: 0.01,
+      Light_Y: {
+        value: 25,
+        min: -100,
+        max: 100,
+        step: 1,
+      },
+      Light_Z: {
+        value: 25,
+        min: -100,
+        max: 100,
+        step: 1,
       },
     }),
   });
+
+  const { Threshold, Smoothing, Intensity, Amount, Density } = useControls(
+    "Effects",
+    {
+      Bloom: folder({
+        Threshold: {
+          value: 0.0,
+          min: 0.01,
+          max: 1,
+          step: 0.01,
+        },
+        Smoothing: {
+          value: 0,
+          min: 0,
+          max: 1,
+          step: 0.01,
+        },
+        Intensity: {
+          value: 0.0,
+          min: 0,
+          max: 5,
+          step: 0.01,
+        },
+      }),
+      Pixelate: folder({
+        Amount: {
+          value: 0,
+          min: 0,
+          max: 10,
+          step: 0.1,
+        },
+      }),
+      Scanlines: folder({
+        Density: {
+          value: 0.0,
+          min: 0,
+          max: 2,
+          step: 0.01,
+        },
+      }),
+    }
+  );
 
   const colors = useMemo(
     () => [
@@ -99,17 +131,22 @@ export function FiberContainer() {
     [Highlights, Midtones, Shadows]
   );
 
+  const lightPosition = useMemo(
+    () => [Light_X, Light_Y, Light_Z],
+    [Light_X, Light_Y, Light_Z]
+  );
+
   return (
     <div
       style={{ background: Background }}
       className=" justify-self-center absolute h-full w-full"
     >
-      <Canvas camera={{ position: [50, 4, 0], fov: 30 }} shadows>
-        <Scene colors={colors} brightnessThresholds={brightnessThresholds} />
+      <Canvas camera={{ position: [400, 0, 0], fov: 30 }} shadows>
+        <Scene colors={colors} brightnessThresholds={brightnessThresholds} lightPosition={lightPosition}/>
         <OrbitControls
           minDistance={10}
-          maxDistance={100}
-          enablePan={false}
+          maxDistance={600}
+          enablePan={true}
           enableRotate={true}
         />
         <EffectComposer
@@ -117,7 +154,7 @@ export function FiberContainer() {
           disableNormalPass={false}
           depthBuffer={false}
         >
-          <Scanline scrollSpeed={0.05} density={Density} opacity={0.3}/>
+          <Scanline scrollSpeed={0.05} density={Density} opacity={0.3} />
           <Bloom
             luminanceThreshold={Threshold}
             luminanceSmoothing={Smoothing}

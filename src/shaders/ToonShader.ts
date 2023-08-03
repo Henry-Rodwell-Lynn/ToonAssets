@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import { Vector3, Color } from "three";
+import { Color } from "three";
 
 export const ToonShader = {
 
@@ -10,7 +10,7 @@ export const ToonShader = {
     brightnessThresholds: {
       value: [0.95, 0.35, 0.0],
     },
-    lightPosition: { value: new Vector3(15, 15, 15) },
+    lightPosition: { value: [25, 25, 25] },
     uOpacity: { value: 0.5 },
   },
 
@@ -33,7 +33,7 @@ export const ToonShader = {
   fragmentShader: /* glsl */ `
     precision highp float;
     precision highp int;
-
+ 
     uniform mat4 modelMatrix;
 
     uniform vec3 colorMap[4];
@@ -45,7 +45,7 @@ export const ToonShader = {
     uniform float uOpacity;
 
     void main() {
-      vec3 worldPosition = ( modelMatrix * vec4( vPosition, 1 )).xyz;
+      vec3 worldPosition = ( modelMatrix * vec4( vPosition, 1.0 )).xyz;
       vec3 worldNormal = normalize( vec3( modelMatrix * vec4( vNormal, 0.0 ) ) );
       vec3 lightVector = normalize( lightPosition - worldPosition );
       float brightness = dot( worldNormal, lightVector );

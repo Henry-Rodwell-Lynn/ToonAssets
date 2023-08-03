@@ -4,27 +4,27 @@ import { useFrame } from "@react-three/fiber";
 import { Group } from "three";
 import { Color } from "three";
 
-interface SceneProps {
+type SceneProps = {
   colors: Color[];
   brightnessThresholds: number[];
-  children?: ReactNode;
-}
+  lightPosition: number[];
+};
 
 
-export const Scene = ({ colors, brightnessThresholds }: SceneProps) => {
+export const Scene = ({ colors, brightnessThresholds, lightPosition }: SceneProps) => {
 
   const refLogo = useRef<Group>(null);
 
   useFrame(() => {
     const { current: group } = refLogo;
     if (group) {
-      group.rotation.x = group.rotation.y += 0.005;
+     group.rotation.y += 0.005;
     }
   });
 
   return (
     <>
-      <Logo ref={refLogo} colors={colors} brightnessThresholds={brightnessThresholds} />
+      <Logo ref={refLogo} colors={colors} brightnessThresholds={brightnessThresholds} lightPosition={lightPosition}/>
     </>
   );
 };
