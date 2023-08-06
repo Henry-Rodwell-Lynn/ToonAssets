@@ -10,6 +10,7 @@ import {
   Pixelation,
   Scanline,
 } from "@react-three/postprocessing";
+import { Perf } from "r3f-perf";
 
 export function FiberContainer() {
   const { High, High_Mid, Low_Mid, Low, Background } = useControls("Color", {
@@ -24,55 +25,49 @@ export function FiberContainer() {
     }),
   });
 
-  const {
-    Highlights,
-    Midtones,
-    Shadows,
-    Light_X,
-    Light_Y,
-    Light_Z,
-  } = useControls("Shader", {
-    Material: folder({
-      Highlights: {
-        value: 0.87,
-        min: 0,
-        max: 1,
-        step: 0.01,
-      },
-      Midtones: {
-        value: 0.35,
-        min: 0,
-        max: 1,
-        step: 0.01,
-      },
-      Shadows: {
-        value: 0.0,
-        min: 0,
-        max: 1,
-        step: 0.01,
-      },
-    }),
-    Light_Position: folder({
-      Light_X: {
-        value: 25,
-        min: -100,
-        max: 100,
-        step: 1,
-      },
-      Light_Y: {
-        value: 25,
-        min: -100,
-        max: 100,
-        step: 1,
-      },
-      Light_Z: {
-        value: 25,
-        min: -100,
-        max: 100,
-        step: 1,
-      },
-    }),
-  });
+  const { Highlights, Midtones, Shadows, Light_X, Light_Y, Light_Z } =
+    useControls("Shader", {
+      Material: folder({
+        Highlights: {
+          value: 0.87,
+          min: 0,
+          max: 1,
+          step: 0.01,
+        },
+        Midtones: {
+          value: 0.35,
+          min: 0,
+          max: 1,
+          step: 0.01,
+        },
+        Shadows: {
+          value: 0.0,
+          min: 0,
+          max: 1,
+          step: 0.01,
+        },
+      }),
+      Light_Position: folder({
+        Light_X: {
+          value: 25,
+          min: -100,
+          max: 100,
+          step: 1,
+        },
+        Light_Y: {
+          value: 25,
+          min: -100,
+          max: 100,
+          step: 1,
+        },
+        Light_Z: {
+          value: 25,
+          min: -100,
+          max: 100,
+          step: 1,
+        },
+      }),
+    });
 
   const { Threshold, Smoothing, Intensity, Amount, Density } = useControls(
     "Effects",
@@ -142,7 +137,12 @@ export function FiberContainer() {
       className=" justify-self-center absolute h-full w-full"
     >
       <Canvas camera={{ position: [400, 0, 0], fov: 30 }} shadows>
-        <Scene colors={colors} brightnessThresholds={brightnessThresholds} lightPosition={lightPosition}/>
+        <Perf position="bottom-left" />
+        <Scene
+          colors={colors}
+          brightnessThresholds={brightnessThresholds}
+          lightPosition={lightPosition}
+        />
         <OrbitControls
           minDistance={10}
           maxDistance={600}

@@ -12,7 +12,7 @@ interface LogoProps {
 }
 
 export const Logo = forwardRef<any, LogoProps>((props, ref) => {
-  const { nodes } = useGLTF("./Building_Test.glb") as any;
+  const { nodes } = useGLTF("./Building_Test_2.glb") as any;
 
   const { Opacity } = useControls('Shader', {
     Opacity: {
@@ -97,4 +97,4 @@ export const Logo = forwardRef<any, LogoProps>((props, ref) => {
   );
 });
 
-useGLTF.preload("./Building_Test.glb");
+useGLTF.preload("./Building_Test_2.glb");
