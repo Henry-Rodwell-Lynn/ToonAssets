@@ -1,14 +1,18 @@
 import { forwardRef, useEffect } from "react";
 import { useGLTF } from "@react-three/drei";
-import { Color } from "three";
+import { Color } from "three"; 
 import { ToonShader } from "./shaders/ToonShader";
 import { useControls } from "leva";
 
 interface LogoProps {
   colors: string[];
   brightnessThresholds: number[];
+<<<<<<< HEAD
   lightPosition: number[];
   [key: string]: any;
+=======
+  [key: string]: any; 
+>>>>>>> parent of 921f015 (Transparent Model)
 }
 
 export const Logo = forwardRef<any, LogoProps>((props, ref) => {
@@ -24,13 +28,15 @@ export const Logo = forwardRef<any, LogoProps>((props, ref) => {
   });
 
   useEffect(() => {
-    ToonShader.uniforms.colorMap.value = props.colors.map(
-      (color) => new Color(color)
-    );
+    ToonShader.uniforms.colorMap.value = props.colors.map((color) => new Color(color));
     ToonShader.uniforms.brightnessThresholds.value = props.brightnessThresholds;
+<<<<<<< HEAD
     ToonShader.uniforms.lightPosition.value = props.lightPosition
     ToonShader.uniforms.uOpacity.value = Opacity;
   }, [props.colors, props.brightnessThresholds, Opacity, props.lightPosition]);
+=======
+  }, [props.colors, props.brightnessThresholds]);
+>>>>>>> parent of 921f015 (Transparent Model)
 
   return (
     <group ref={ref} {...props} dispose={null}>
@@ -42,6 +48,7 @@ export const Logo = forwardRef<any, LogoProps>((props, ref) => {
         rotation={[Math.PI / 2, 0, 0.235]}
         scale={1}
       >
+<<<<<<< HEAD
         <shaderMaterial
           attach="material"
           transparent
@@ -92,6 +99,9 @@ export const Logo = forwardRef<any, LogoProps>((props, ref) => {
           opacity={0}
           {...ToonShader}
         />
+=======
+        <shaderMaterial attach="material" {...ToonShader} />
+>>>>>>> parent of 921f015 (Transparent Model)
       </mesh>
     </group>
   );

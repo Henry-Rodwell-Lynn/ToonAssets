@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { Scene } from "./Scene";
+import { Ground } from "./Ground";
 import { Color } from "three";
 import { useControls, folder } from "leva";
 import {
@@ -15,10 +16,17 @@ import { Perf } from "r3f-perf";
 export function FiberContainer() {
   const { High, High_Mid, Low_Mid, Low, Background } = useControls("Color", {
     Model: folder({
+<<<<<<< HEAD
       High: "#ff76f1",
       High_Mid: "#c700b3",
       Low_Mid: "#4b0044",
       Low: "#26004b",
+=======
+      High: "#ff97f1",
+      High_Mid: "#ff5ce9",
+      Low_Mid: "#b03fa5",
+      Low: "#1f003e",
+>>>>>>> parent of 921f015 (Transparent Model)
     }),
     Background: folder({
       Background: "#ffffff",
@@ -132,6 +140,7 @@ export function FiberContainer() {
   );
 
   return (
+<<<<<<< HEAD
     <div
       style={{ background: Background }}
       className=" justify-self-center absolute h-full w-full"
@@ -166,6 +175,17 @@ export function FiberContainer() {
           />
         </EffectComposer> 
            <Pixelation granularity={Amount} />
+=======
+    <div style={{background: Background}} className=" justify-self-center absolute h-full w-full">
+      <Canvas camera={{ position: [50, 4, 0], fov: 30 }} shadows>
+        <Scene colors={colors} brightnessThresholds={brightnessThresholds} />
+        <Ground />
+        <OrbitControls 
+          minDistance={10} 
+          maxDistance={100}
+          enablePan={false}
+          enableRotate={true} />
+>>>>>>> parent of 921f015 (Transparent Model)
       </Canvas>
     </div>
   );
