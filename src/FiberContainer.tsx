@@ -4,12 +4,12 @@ import { OrbitControls } from "@react-three/drei";
 import { Scene } from "./Scene";
 import { Color } from "three";
 import { useControls, folder } from "leva";
-import {
-  EffectComposer,
-  Bloom,
-  Pixelation,
-  Scanline,
-} from "@react-three/postprocessing";
+// import {
+//   EffectComposer,
+//   Bloom,
+//   Pixelation,
+//   Scanline,
+// } from "@react-three/postprocessing";
 import { Perf } from "r3f-perf";
 
 export function FiberContainer() {
@@ -69,47 +69,47 @@ export function FiberContainer() {
       }),
     });
 
-  const { Threshold, Smoothing, Intensity, Amount, Density } = useControls(
-    "Effects",
-    {
-      Bloom: folder({
-        Threshold: {
-          value: 0.0,
-          min: 0.01,
-          max: 1,
-          step: 0.01,
-        },
-        Smoothing: {
-          value: 0,
-          min: 0,
-          max: 1,
-          step: 0.01,
-        },
-        Intensity: {
-          value: 0.0,
-          min: 0,
-          max: 5,
-          step: 0.01,
-        },
-      }),
-      Pixelate: folder({
-        Amount: {
-          value: 0,
-          min: 0,
-          max: 10,
-          step: 0.1,
-        },
-      }),
-      Scanlines: folder({
-        Density: {
-          value: 0.0,
-          min: 0,
-          max: 2,
-          step: 0.01,
-        },
-      }),
-    }
-  );
+  // const { Threshold, Smoothing, Intensity, Amount, Density } = useControls(
+  //   "Effects",
+  //   {
+  //     Bloom: folder({
+  //       Threshold: {
+  //         value: 0.0,
+  //         min: 0.01,
+  //         max: 1,
+  //         step: 0.01,
+  //       },
+  //       Smoothing: {
+  //         value: 0,
+  //         min: 0,
+  //         max: 1,
+  //         step: 0.01,
+  //       },
+  //       Intensity: {
+  //         value: 0.0,
+  //         min: 0,
+  //         max: 5,
+  //         step: 0.01,
+  //       },
+  //     }),
+  //     Pixelate: folder({
+  //       Amount: {
+  //         value: 0,
+  //         min: 0,
+  //         max: 10,
+  //         step: 0.1,
+  //       },
+  //     }),
+  //     Scanlines: folder({
+  //       Density: {
+  //         value: 0.0,
+  //         min: 0,
+  //         max: 2,
+  //         step: 0.01,
+  //       },
+  //     }),
+  //   }
+  // );
 
   const colors = useMemo(
     () => [
@@ -144,13 +144,13 @@ export function FiberContainer() {
           lightPosition={lightPosition}
         />
         <OrbitControls
-          minDistance={10}
-          maxDistance={600}
+          minDistance={40}
+          maxDistance={50}
           enablePan={true}
           enableRotate={true}
         />
-        <EffectComposer
-          enabled={true}
+        {/* <EffectComposer
+          enabled={false}
           disableNormalPass={false}
           depthBuffer={false}
         >
@@ -164,8 +164,8 @@ export function FiberContainer() {
             resolutionX={1080}
             resolutionY={1080}
           />
-          <Pixelation granularity={Amount} />
-        </EffectComposer>
+        </EffectComposer> */}
+          {/* <Pixelation granularity={Amount} /> */}
       </Canvas>
     </div>
   );
