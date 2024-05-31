@@ -9,15 +9,17 @@ import {
   Bloom,
   Pixelation,
   Scanline,
+  Noise,
+  DepthOfField
 } from "@react-three/postprocessing";
 
 export function FiberContainer() {
   const { High, High_Mid, Low_Mid, Low, Background } = useControls("Color", {
     Model: folder({
-      High: "#ff76f1",
-      High_Mid: "#c700b3",
-      Low_Mid: "#4b0044",
-      Low: "#26004b",
+      High: "#B45CB9",
+      High_Mid: "#849797",
+      Low_Mid: "#985BE0",
+      Low: "#8216F0",
     }),
     Background: folder({
       Background: "#ffffff",
@@ -45,44 +47,47 @@ export function FiberContainer() {
     },
   });
 
-  const { Threshold, Smoothing, Intensity, Amount, Density } = useControls("Effects", {
-    Bloom: folder({
-      Threshold: {
-        value: 0.01,
-        min: 0.01,
-        max: 1,
-        step: 0.01,
-      },
-      Smoothing: {
-        value: 0,
-        min: 0,
-        max: 1,
-        step: 0.01,
-      },
-      Intensity: {
-        value: 1.4,
-        min: 0,
-        max: 5,
-        step: 0.01,
-      },
-    }),
-    Pixelate: folder({
-      Amount: {
-        value: 0,
-        min: 0,
-        max: 10,
-        step: 0.1,
-      },
-    }),
-    Scanlines: folder({
-      Density: {
-        value: 1.0,
-        min: 0,
-        max: 2,
-        step: 0.01,
-      },
-    }),
-  });
+  const { Threshold, Smoothing, Intensity, Amount, Density } = useControls(
+    "Effects",
+    {
+      Bloom: folder({
+        Threshold: {
+          value: 0.01,
+          min: 0.01,
+          max: 1,
+          step: 0.01,
+        },
+        Smoothing: {
+          value: 0,
+          min: 0,
+          max: 1,
+          step: 0.01,
+        },
+        Intensity: {
+          value: 1.4,
+          min: 0,
+          max: 5,
+          step: 0.01,
+        },
+      }),
+      Pixelate: folder({
+        Amount: {
+          value: 0,
+          min: 0,
+          max: 10,
+          step: 0.1,
+        },
+      }),
+      Scanlines: folder({
+        Density: {
+          value: 0.0,
+          min: 0,
+          max: 2,
+          step: 0.01,
+        },
+      }),
+    }
+  );
 
   const colors = useMemo(
     () => [
@@ -112,22 +117,20 @@ export function FiberContainer() {
           enablePan={false}
           enableRotate={true}
         />
-        <EffectComposer
-          enabled={true}
-          disableNormalPass={false}
-          depthBuffer={false}
-        >
-          <Scanline scrollSpeed={0.05} density={Density} opacity={0.3}/>
+        <EffectComposer enabled={true}>
+          <Scanline scrollSpeed={0.05} density={Density} opacity={0.3} />
           <Bloom
             luminanceThreshold={Threshold}
             luminanceSmoothing={Smoothing}
-            height={300}
+            height={480}
             intensity={Intensity}
             resolutionScale={1000}
             resolutionX={1080}
             resolutionY={1080}
           />
           <Pixelation granularity={Amount} />
+          <Noise opacity={0.2} />
+          <DepthOfField focusDistance={0} focalLength={0} bokehScale={20} height={480} />
         </EffectComposer>
       </Canvas>
     </div>

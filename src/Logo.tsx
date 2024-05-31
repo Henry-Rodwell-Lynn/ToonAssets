@@ -17,7 +17,7 @@ export const Logo = forwardRef<any, LogoProps>((props, ref) => {
       (color) => new Color(color)
     );
     ToonShader.uniforms.brightnessThresholds.value = props.brightnessThresholds;
-    ToonShader.uniforms.uOpacity.value = 0.5;
+    ToonShader.uniforms.uOpacity.value = 1.0;
   }, [props.colors, props.brightnessThresholds]);
 
   return (
@@ -27,12 +27,10 @@ export const Logo = forwardRef<any, LogoProps>((props, ref) => {
         receiveShadow
         geometry={nodes.qawalli.geometry}
         rotation={[Math.PI / 2, 0, 0]}
-        scale={0.5}
+        scale={1}
       >
         <shaderMaterial
           attach="material"
-          transparent
-          opacity={0.5}
           {...ToonShader}
         />
       </mesh>
