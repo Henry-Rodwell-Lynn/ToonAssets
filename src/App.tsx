@@ -1,20 +1,24 @@
 import { FiberContainer } from "./FiberContainer";
 import { Leva } from "leva";
+import { isBrowser } from "react-device-detect";
 
 function App() {
-  return (
-    <div className="w-full h-full ">
-      {/* <p className="absolute z-30 m-2 text-xl text-white">Cartoon Shader v1
-      </p> */}
-
-      <div className="">
-        <FiberContainer />
+  if (isBrowser) {
+    return (
+      <div className="w-full h-full">
+        <div className="">
+          <FiberContainer />
+        </div>
+        <div>
+          <Leva collapsed={true} />
+        </div>
       </div>
-      <div>
-        <Leva collapsed={true} />
-      </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <p className=' text-lg font-bold flex flex-row min-h-screen justify-center items-center'>Site built for desktop only</p>
+    );
+  }
 }
 
 export default App;
