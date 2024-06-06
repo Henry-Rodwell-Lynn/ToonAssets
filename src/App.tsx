@@ -10,7 +10,7 @@ function App() {
           <FiberContainer />
         </div>
         <div>
-          <Leva collapsed={true} />
+          <Leva collapsed={false} />
         </div>
       </div>
     );
